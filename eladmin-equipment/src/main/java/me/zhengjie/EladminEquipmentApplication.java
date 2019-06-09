@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAsync
 @SpringBootApplication
 @EnableTransactionManagement
-public class AppRun {
+public class EladminEquipmentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppRun.class, args);
+        SpringApplication.run(EladminEquipmentApplication.class, args);
     }
 
     @Bean
