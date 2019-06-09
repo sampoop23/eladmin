@@ -15,7 +15,6 @@
         <module>eladmin-system</module>
         <module>eladmin-tools</module>
         <module>eladmin-generator</module>
-        <module>eladmin-equipment</module>
     </modules>
 
     <name>el-admin</name>
