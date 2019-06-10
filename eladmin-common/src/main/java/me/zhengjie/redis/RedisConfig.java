@@ -62,6 +62,8 @@ public class RedisConfig extends CachingConfigurerSupport {
         ParserConfig.getGlobalInstance().addAccept("me.zhengjie.domain");
         ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.system.service.dto");
         ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.system.domain");
+        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.equipment.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.equipment.domain");
         ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.quartz.domain");
         ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.monitor.domain");
         ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.security.security");

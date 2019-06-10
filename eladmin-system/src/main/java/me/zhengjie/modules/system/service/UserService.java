@@ -16,8 +16,12 @@ import org.springframework.data.domain.Pageable;
 @CacheConfig(cacheNames = "user")
 public interface UserService {
 
+    @Cacheable(keyGenerator = "keyGenerator")
+    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
+
     /**
      * get
+     *
      * @param id
      * @return
      */
@@ -26,6 +30,7 @@ public interface UserService {
 
     /**
      * create
+     *
      * @param resources
      * @return
      */
@@ -34,6 +39,7 @@ public interface UserService {
 
     /**
      * update
+     *
      * @param resources
      */
     @CacheEvict(allEntries = true)
@@ -41,6 +47,7 @@ public interface UserService {
 
     /**
      * delete
+     *
      * @param id
      */
     @CacheEvict(allEntries = true)
@@ -48,6 +55,7 @@ public interface UserService {
 
     /**
      * findByName
+     *
      * @param userName
      * @return
      */
@@ -56,6 +64,7 @@ public interface UserService {
 
     /**
      * 修改密码
+     *
      * @param username
      * @param encryptPassword
      */
@@ -64,6 +73,7 @@ public interface UserService {
 
     /**
      * 修改头像
+     *
      * @param username
      * @param url
      */
@@ -72,12 +82,10 @@ public interface UserService {
 
     /**
      * 修改邮箱
+     *
      * @param username
      * @param email
      */
     @CacheEvict(allEntries = true)
     void updateEmail(String username, String email);
-
-    @Cacheable(keyGenerator = "keyGenerator")
-    Object queryAll(UserQueryCriteria criteria, Pageable pageable);
 }
