@@ -26,7 +26,6 @@ spring:
       validation-query: select 1
       # 配置监控统计拦截的filters
       filters: stat
-
       stat-view-servlet:
         url-pattern: /druid/*
         reset-enable: false
