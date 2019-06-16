@@ -3,10 +3,13 @@ package me.zhengjie.modules.system.service;
 import me.zhengjie.modules.system.domain.AreaCode;
 import me.zhengjie.modules.system.service.dto.AreaCodeDTO;
 import me.zhengjie.modules.system.service.dto.AreaCodeQueryCriteria;
+import me.zhengjie.modules.system.service.dto.DeptDTO;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * @author cp
@@ -32,7 +35,7 @@ public interface AreaCodeService {
      * @return
      */
     @Cacheable(keyGenerator = "keyGenerator")
-    public Object queryAll(AreaCodeQueryCriteria criteria);
+    public List<AreaCodeDTO> queryAll(AreaCodeQueryCriteria criteria);
 
     /**
      * findById
@@ -67,4 +70,13 @@ public interface AreaCodeService {
      */
     @CacheEvict(allEntries = true)
     void delete(Long code);
+
+    /**
+     * buildTree
+     *
+     * @param areaCodeDTOS
+     * @return
+     */
+    @Cacheable(keyGenerator = "keyGenerator")
+    Object buildTree(List<AreaCodeDTO> areaCodeDTOS);
 }

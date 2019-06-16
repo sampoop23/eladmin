@@ -7,6 +7,8 @@ import me.zhengjie.modules.system.repository.AreaCodeRepository;
 import me.zhengjie.modules.system.service.AreaCodeService;
 import me.zhengjie.modules.system.service.dto.AreaCodeDTO;
 import me.zhengjie.modules.system.service.dto.AreaCodeQueryCriteria;
+import me.zhengjie.modules.system.service.dto.AreaCodeDTO;
+import me.zhengjie.modules.system.service.dto.DeptDTO;
 import me.zhengjie.modules.system.service.mapper.AreaCodeMapper;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
@@ -17,8 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author cp
@@ -41,7 +45,7 @@ public class AreaCodeServiceImpl implements AreaCodeService {
     }
 
     @Override
-    public Object queryAll(AreaCodeQueryCriteria criteria) {
+    public List<AreaCodeDTO> queryAll(AreaCodeQueryCriteria criteria) {
         return areaCodeMapper.toDto(areaCodeRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder)));
     }
 
@@ -52,6 +56,45 @@ public class AreaCodeServiceImpl implements AreaCodeService {
         return areaCodeMapper.toDto(areaCode.get());
     }
 
+
+    @Override
+    public Object buildTree(List<AreaCodeDTO> areaCodeDTOS) {
+        Set<AreaCodeDTO> trees = new LinkedHashSet<>();
+        Set<AreaCodeDTO> depts= new LinkedHashSet<>();
+        List<String> deptNames = areaCodeDTOS.stream().map(AreaCodeDTO::getName).collect(Collectors.toList());
+        Boolean isChild;
+        for (AreaCodeDTO areaCodeDTO : areaCodeDTOS) {
+            isChild = false;
+            if ("0".equals(areaCodeDTO.getPcode().toString())) {
+                trees.add(areaCodeDTO);
+            }
+            for (AreaCodeDTO it : areaCodeDTOS) {
+                if (it.getPcode().equals(areaCodeDTO.getCode())) {
+                    isChild = true;
+                    if (areaCodeDTO.getChildren() == null) {
+                        areaCodeDTO.setChildren(new ArrayList<AreaCodeDTO>());
+                    }
+                    areaCodeDTO.getChildren().add(it);
+                }
+            }
+            if(isChild)
+                depts.add(areaCodeDTO);
+            else if(!deptNames.contains(areaCodeRepository.findNameByCode(areaCodeDTO.getPcode())))
+                depts.add(areaCodeDTO);
+        }
+
+        if (CollectionUtils.isEmpty(trees)) {
+            trees = depts;
+        }
+
+        Integer totalElements = areaCodeDTOS!=null?areaCodeDTOS.size():0;
+
+        Map map = new HashMap();
+        map.put("totalElements",totalElements);
+        map.put("content",CollectionUtils.isEmpty(trees)?areaCodeDTOS:trees);
+        return map;
+    }
+    
     @Override
     @Transactional(rollbackFor = Exception.class)
     public AreaCodeDTO create(AreaCode resources) {

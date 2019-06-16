@@ -2,6 +2,7 @@ package me.zhengjie.modules.equipment.rest;
 
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.config.DataScope;
+import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.equipment.domain.Equipment;
 import me.zhengjie.modules.equipment.service.EquipmentService;
 import me.zhengjie.modules.equipment.service.dto.EquipmentQueryCriteria;
@@ -28,6 +29,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("api")
 public class EquipmentController {
+
+    private static final String ENTITY_NAME = "equipment";
 
     @Autowired
     private DataScope dataScope;
@@ -82,6 +85,9 @@ public class EquipmentController {
     @PostMapping(value = "/equipment")
     @PreAuthorize("hasAnyRole('ADMIN','EQUIPMENT_ALL','EQUIPMENT_CREATE')")
     public ResponseEntity create(@Validated @RequestBody Equipment resources) {
+        if (resources.getId() != null) {
+            throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
+        }
         return new ResponseEntity(equipmentService.create(resources), HttpStatus.CREATED);
     }
 

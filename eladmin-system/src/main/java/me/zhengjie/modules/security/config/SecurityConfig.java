@@ -45,8 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(jwtUserDetailsService)
+        auth.userDetailsService(jwtUserDetailsService)
                 .passwordEncoder(passwordEncoderBean());
     }
 
@@ -91,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.js"
                 ).anonymous()
 
-                .antMatchers( HttpMethod.POST,"/auth/"+loginPath).anonymous()
+                .antMatchers(HttpMethod.POST, "/auth/" + loginPath).anonymous()
                 .antMatchers("/websocket/**").anonymous()
                 // 支付宝回调
                 .antMatchers("/api/aliPay/return").anonymous()

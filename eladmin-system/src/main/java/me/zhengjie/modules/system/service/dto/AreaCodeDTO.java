@@ -1,7 +1,10 @@
 package me.zhengjie.modules.system.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import java.io.Serializable;
+import java.util.List;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
@@ -34,4 +37,7 @@ public class AreaCodeDTO implements Serializable {
      * 父级区划代码
      */
     private Long pcode;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<AreaCodeDTO> children;
 }
