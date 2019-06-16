@@ -15,6 +15,7 @@
         <module>eladmin-system</module>
         <module>eladmin-tools</module>
         <module>eladmin-generator</module>
+        <module>eladmin-nio</module>
     </modules>
 
     <name>el-admin</name>
@@ -173,6 +174,7 @@
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
+
     </dependencies>
 
     <build>
