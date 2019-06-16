@@ -1,17 +1,19 @@
 package me.zhengjie.modules.performance.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
-* @author cp
-* @date 2019-06-16
-*/
+ * @author cp
+ * @date 2019-06-16
+ */
 @Entity
 @Data
-@Table(name="performance_data_trashcan")
+@Table(name = "performance_data_trashcan")
 public class PerformanceDataTrashcan implements Serializable {
 
     /**
@@ -25,12 +27,13 @@ public class PerformanceDataTrashcan implements Serializable {
     /**
      * gps编号
      */
-    @Column(name = "gps_id",nullable = false)
+    @Column(name = "gps_id", nullable = false)
     private String gpsId;
 
     /**
      * 日期时间
      */
+    @CreationTimestamp
     @Column(name = "date_time")
     private Timestamp dateTime;
 
@@ -56,5 +59,5 @@ public class PerformanceDataTrashcan implements Serializable {
      * 错误信息
      */
     @Column(name = "err_info")
-    private Integer errInfo;
+    private String errInfo;
 }

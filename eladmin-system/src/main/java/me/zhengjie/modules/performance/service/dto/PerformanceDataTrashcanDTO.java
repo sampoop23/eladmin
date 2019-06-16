@@ -1,14 +1,15 @@
 package me.zhengjie.modules.performance.service.dto;
 
 import lombok.Data;
+
 import java.sql.Timestamp;
 import java.io.Serializable;
 
 
 /**
-* @author cp
-* @date 2019-06-16
-*/
+ * @author cp
+ * @date 2019-06-16
+ */
 @Data
 public class PerformanceDataTrashcanDTO implements Serializable {
 
@@ -45,5 +46,5 @@ public class PerformanceDataTrashcanDTO implements Serializable {
     /**
      * 错误信息
      */
-    private Integer errInfo;
+    private String errInfo;
 }
