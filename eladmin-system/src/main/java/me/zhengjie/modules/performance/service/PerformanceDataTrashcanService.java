@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
  * @author cp
  * @date 2019-06-16
  */
-@CacheConfig(cacheNames = "performanceDataTrashcan")
+//@CacheConfig(cacheNames = "performanceDataTrashcan")
 public interface PerformanceDataTrashcanService {
 
     /**
@@ -22,7 +22,7 @@ public interface PerformanceDataTrashcanService {
      * @param pageable
      * @return
      */
-    @Cacheable(keyGenerator = "keyGenerator")
+//    @Cacheable(keyGenerator = "keyGenerator")
     Object queryAll(PerformanceDataTrashcanQueryCriteria criteria, Pageable pageable);
 
     /**
@@ -31,7 +31,7 @@ public interface PerformanceDataTrashcanService {
      * @param criteria
      * @return
      */
-    @Cacheable(keyGenerator = "keyGenerator")
+//    @Cacheable(keyGenerator = "keyGenerator")
     public Object queryAll(PerformanceDataTrashcanQueryCriteria criteria);
 
     /**
@@ -40,7 +40,7 @@ public interface PerformanceDataTrashcanService {
      * @param id
      * @return
      */
-    @Cacheable(key = "#p0")
+//    @Cacheable(key = "#p0")
     PerformanceDataTrashcanDTO findById(Long id);
 
     /**
@@ -49,7 +49,7 @@ public interface PerformanceDataTrashcanService {
      * @param resources
      * @return
      */
-    @CacheEvict(allEntries = true)
+//    @CacheEvict(allEntries = true)
     PerformanceDataTrashcanDTO create(PerformanceDataTrashcan resources);
 
     /**
@@ -57,7 +57,7 @@ public interface PerformanceDataTrashcanService {
      *
      * @param resources
      */
-    @CacheEvict(allEntries = true)
+//    @CacheEvict(allEntries = true)
     void update(PerformanceDataTrashcan resources);
 
     /**
@@ -65,6 +65,6 @@ public interface PerformanceDataTrashcanService {
      *
      * @param id
      */
-    @CacheEvict(allEntries = true)
+//    @CacheEvict(allEntries = true)
     void delete(Long id);
 }
