@@ -29,15 +29,20 @@ public class EquipmentTrashcanDTO implements Serializable {
      */
     private String equipmentNo;
 
-    /**
-     * 设备名
-     */
-    private String equipmentName;
+//    /**
+//     * 设备名
+//     */
+//    private String equipmentName;
 
     /**
-     * 设备类型
+     * 垃圾桶类型
      */
-    private Integer trashcanType;
+    private String trashcanType;
+
+    /**
+     * 垃圾类型
+     */
+    private String garbageType;
 
     /**
      * 地址
@@ -47,11 +52,6 @@ public class EquipmentTrashcanDTO implements Serializable {
     private String addressRegion;
     private String addressStreet;
     private String addressRoom;
-
-    /**
-     * 状态：1启用、0禁用
-     */
-    private Integer enabled;
 
     /**
      * 创建日期

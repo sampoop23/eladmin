@@ -1,5 +1,7 @@
 package me.zhengjie.modules.equipment.service;
 
+import me.zhengjie.domain.QiniuConfig;
+import me.zhengjie.domain.QiniuContent;
 import me.zhengjie.modules.equipment.domain.EquipmentTrashcan;
 import me.zhengjie.modules.equipment.service.dto.EquipmentTrashcanDTO;
 import me.zhengjie.modules.equipment.service.dto.EquipmentTrashcanQueryCriteria;
@@ -7,6 +9,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author cp
@@ -76,4 +79,12 @@ public interface EquipmentTrashcanService {
      */
 //    @Cacheable(key = "#p0")
     EquipmentTrashcanDTO findByGpsId(String gpsId);
+
+
+    /**
+     * 上传文件
+     * @param file
+     */
+//    @CacheEvict(allEntries = true)
+    boolean upload(MultipartFile file);
 }

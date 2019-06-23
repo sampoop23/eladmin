@@ -26,11 +26,11 @@ public interface EquipmentTrashcanRepository extends JpaRepository<EquipmentTras
      */
     EquipmentTrashcan findByEquipmentNo(String equipmentNo);
 
-    /**
-     * findByEquipmentName
-     *
-     * @param equipmentName
-     * @return
-     */
-    EquipmentTrashcan findByEquipmentName(String equipmentName);
+//    /**
+//     * findByEquipmentName
+//     *
+//     * @param equipmentName
+//     * @return
+//     */
+//    EquipmentTrashcan findByEquipmentName(String equipmentName);
 }

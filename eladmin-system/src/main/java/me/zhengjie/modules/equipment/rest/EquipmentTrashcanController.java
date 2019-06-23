@@ -2,6 +2,7 @@ package me.zhengjie.modules.equipment.rest;
 
 import me.zhengjie.aop.log.Log;
 import me.zhengjie.config.DataScope;
+import me.zhengjie.domain.QiniuContent;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.equipment.domain.EquipmentTrashcan;
 import me.zhengjie.modules.equipment.service.EquipmentTrashcanService;
@@ -17,8 +18,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -104,6 +108,24 @@ public class EquipmentTrashcanController {
     @PreAuthorize("hasAnyRole('ADMIN','EQUIPMENT_TRASHCAN_ALL','EQUIPMENT_TRASHCAN_DELETE')")
     public ResponseEntity delete(@PathVariable Long id) {
         equipmentTrashcanService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    /**
+     * 上传文件到七牛云
+     * @param file
+     * @return
+     */
+    @Log("上传文件")
+    @PostMapping(value = "/equipment/trashcan/upload")
+    public ResponseEntity upload(@RequestParam MultipartFile file){
+//        QiniuContent qiniuContent = equipmentTrashcanService.upload(file);
+//        Map map = new HashMap();
+//        map.put("id",qiniuContent.getId());
+//        map.put("errno",0);
+//        map.put("data",new String[]{qiniuContent.getUrl()});
+
+
+        equipmentTrashcanService.upload(file);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

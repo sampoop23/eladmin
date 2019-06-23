@@ -37,17 +37,23 @@ public class EquipmentTrashcan implements Serializable {
     @Column(name = "equipment_no")
     private String equipmentNo;
 
-    /**
-     * 设备名
-     */
-    @Column(name = "equipment_name")
-    private String equipmentName;
+//    /**
+//     * 设备名
+//     */
+//    @Column(name = "equipment_name")
+//    private String equipmentName;
 
     /**
-     * 设备类型
+     * 垃圾桶类型
      */
     @Column(name = "trashcan_type")
-    private Integer trashcanType;
+    private String trashcanType;
+
+    /**
+     * 垃圾类型
+     */
+    @Column(name = "garbage_type")
+    private String garbageType;
 
     /**
      * 地址
@@ -63,11 +69,6 @@ public class EquipmentTrashcan implements Serializable {
     @Column(name = "address_room")
     private String addressRoom;
 
-    /**
-     * 状态：1启用、0禁用
-     */
-    @Column(name = "enabled")
-    private Integer enabled;
 
     /**
      * 创建日期

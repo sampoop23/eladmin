@@ -20,9 +20,9 @@ public class EquipmentTrashcanQueryCriteria {
     @Query
     private String equipmentNo;
 
-    // 模糊
-    @Query(type = Query.Type.INNER_LIKE)
-    private String equipmentName;
+//    // 模糊
+//    @Query(type = Query.Type.INNER_LIKE)
+//    private String equipmentName;
 
     // 精确
     @Query
@@ -30,7 +30,7 @@ public class EquipmentTrashcanQueryCriteria {
 
     // 精确
     @Query
-    private Integer enabled;
+    private Integer garbageType;
 
     @Query(propName = "id", type = Query.Type.IN, joinName = "dept")
     private Set<Long> deptIds;

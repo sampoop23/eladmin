@@ -3,8 +3,11 @@ package me.zhengjie.modules.security.security;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.service.dto.DeptDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
@@ -33,6 +36,8 @@ public class JwtUser implements UserDetails {
     private final String phone;
 
     private final String dept;
+
+    private final DeptDTO deptInfo;
 
     private final String job;
 
