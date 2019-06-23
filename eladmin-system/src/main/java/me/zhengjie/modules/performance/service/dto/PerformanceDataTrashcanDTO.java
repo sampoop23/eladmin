@@ -1,6 +1,7 @@
 package me.zhengjie.modules.performance.service.dto;
 
 import lombok.Data;
+import me.zhengjie.modules.system.service.dto.DeptDTO;
 
 import java.sql.Timestamp;
 import java.io.Serializable;
@@ -47,4 +48,8 @@ public class PerformanceDataTrashcanDTO implements Serializable {
      * 错误信息
      */
     private String errInfo;
+
+    private DeptDTO dept;
+
+    private Long deptId;
 }

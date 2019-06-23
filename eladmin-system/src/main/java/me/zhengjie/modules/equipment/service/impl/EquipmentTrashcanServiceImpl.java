@@ -125,4 +125,11 @@ public class EquipmentTrashcanServiceImpl implements EquipmentTrashcanService {
         //
         equipmentTrashcanRepository.deleteById(id);
     }
+
+    @Override
+    public EquipmentTrashcanDTO findByGpsId(String gpsId) {
+        EquipmentTrashcan equipment = equipmentTrashcanRepository.findByGpsId(gpsId);
+        ValidationUtil.isNull(equipment, "EquipmentTrashcan", "gpsId", gpsId);
+        return equipmentTrashcanMapper.toDto(equipment);
+    }
 }

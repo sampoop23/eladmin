@@ -2,6 +2,8 @@ package me.zhengjie.modules.performance.service.dto;
 
 import lombok.Data;
 import java.sql.Timestamp;
+import java.util.Set;
+
 import me.zhengjie.annotation.Query;
 
 /**
@@ -30,4 +32,9 @@ public class PerformanceDataTrashcanQueryCriteria{
     // 精确
     @Query
     private Integer status;
+
+    @Query(propName = "id", type = Query.Type.IN, joinName = "dept")
+    private Set<Long> deptIds;
+
+    private Long deptId;
 }

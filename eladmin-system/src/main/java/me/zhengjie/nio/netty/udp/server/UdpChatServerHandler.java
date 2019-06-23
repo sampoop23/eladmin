@@ -9,12 +9,13 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.util.CharsetUtil;
 import lombok.extern.slf4j.Slf4j;
+import me.zhengjie.modules.equipment.service.EquipmentTrashcanService;
+import me.zhengjie.modules.equipment.service.dto.EquipmentTrashcanDTO;
 import me.zhengjie.modules.performance.domain.PerformanceDataTrashcan;
 import me.zhengjie.modules.performance.service.PerformanceDataTrashcanService;
+import me.zhengjie.modules.system.service.mapper.DeptMapper;
 import me.zhengjie.utils.SpringContextHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  * 消息处理类
@@ -62,15 +63,24 @@ public class UdpChatServerHandler extends SimpleChannelInboundHandler<DatagramPa
 
     private void savePerformanceData(String json) throws Exception {
 
+        EquipmentTrashcanService equipmentTrashcanService = SpringContextHolder.getBean(EquipmentTrashcanService.class);
+        PerformanceDataTrashcanService performanceDataTrashcanService = SpringContextHolder.getBean(PerformanceDataTrashcanService.class);
+        DeptMapper deptMapper = SpringContextHolder.getBean(DeptMapper.class);
+
+
         JSONObject jsonObject = JSON.parseObject(json);
+        String gpsId = jsonObject.getString("gpsId");
+
+        EquipmentTrashcanDTO equipmentTrashcanDTO = equipmentTrashcanService.findByGpsId(gpsId);
+
         PerformanceDataTrashcan performanceData = new PerformanceDataTrashcan();
         performanceData.setGpsId(jsonObject.getString("gpsId"));
         performanceData.setStatus(jsonObject.getInteger("status"));
         performanceData.setWtdG(jsonObject.getInteger("wtdG"));
         performanceData.setWtnG(jsonObject.getInteger("wtnG"));
         performanceData.setErrInfo(jsonObject.getString("errInfo"));
+        performanceData.setDept(deptMapper.toEntity(equipmentTrashcanDTO.getDept()));
 
-        PerformanceDataTrashcanService service = SpringContextHolder.getBean(PerformanceDataTrashcanService.class);
-        service.create(performanceData);
+        performanceDataTrashcanService.create(performanceData);
     }
 }

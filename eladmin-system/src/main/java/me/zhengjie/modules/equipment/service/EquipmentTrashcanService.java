@@ -67,4 +67,13 @@ public interface EquipmentTrashcanService {
      */
 //    @CacheEvict(allEntries = true)
     void delete(Long id);
+
+    /**
+     * findByGpsId
+     *
+     * @param gpsId
+     * @return
+     */
+//    @Cacheable(key = "#p0")
+    EquipmentTrashcanDTO findByGpsId(String gpsId);
 }

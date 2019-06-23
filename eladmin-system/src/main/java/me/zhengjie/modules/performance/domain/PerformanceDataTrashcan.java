@@ -1,6 +1,7 @@
 package me.zhengjie.modules.performance.domain;
 
 import lombok.Data;
+import me.zhengjie.modules.system.domain.Dept;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -60,4 +61,8 @@ public class PerformanceDataTrashcan implements Serializable {
      */
     @Column(name = "err_info")
     private String errInfo;
+
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
+    private Dept dept;
 }
