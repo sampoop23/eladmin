@@ -52,4 +52,12 @@ public class PerformanceHisDataTrashcanDTO implements Serializable {
     private DeptDTO dept;
 
     private Long deptId;
+    //
+    private String addressProv;
+    private String addressCity;
+    private String addressRegion;
+    private String addressStreet;
+    private String addressRoom;
+    private String trashcanType;
+    private String garbageType;
 }

@@ -88,26 +88,54 @@ public class UdpChatServerHandler extends SimpleChannelInboundHandler<DatagramPa
         JSONObject jsonObject = JSON.parseObject(json);
         String gpsId = jsonObject.getString("imei");
 
-        EquipmentTrashcanDTO equipmentTrashcanDTO = equipmentTrashcanService.findByGpsId(gpsId);
+        EquipmentTrashcanDTO equipment = equipmentTrashcanService.findByGpsId(gpsId);
 
+        //实时工况
+        createPerformanceData(jsonObject, gpsId, equipment);
+
+        //历史工况
+        createPerformanceHisData(jsonObject, gpsId, equipment);
+    }
+
+    private void createPerformanceData(JSONObject jsonObject, String gpsId, EquipmentTrashcanDTO equipment) {
         PerformanceDataTrashcan performanceData = new PerformanceDataTrashcan();
         performanceData.setGpsId(gpsId);
         performanceData.setStatus(jsonObject.getInteger("status"));
         performanceData.setWtdG(jsonObject.getInteger("wtdG"));
         performanceData.setWtnG(jsonObject.getInteger("wtnG"));
         performanceData.setErrInfo(jsonObject.getString("errInfo"));
-        performanceData.setDept(deptMapper.toEntity(equipmentTrashcanDTO.getDept()));
+
+        //冗余字段
+        performanceData.setDept(deptMapper.toEntity(equipment.getDept()));
+        performanceData.setAddressProv(equipment.getAddressProv());
+        performanceData.setAddressCity(equipment.getAddressCity());
+        performanceData.setAddressRegion(equipment.getAddressRegion());
+        performanceData.setAddressStreet(equipment.getAddressStreet());
+        performanceData.setAddressRoom(equipment.getAddressRoom());
+        performanceData.setTrashcanType(equipment.getTrashcanType());
+        performanceData.setGarbageType(equipment.getGarbageType());
         performanceDataTrashcanService.deleteByGpsId(gpsId);
         performanceDataTrashcanService.create(performanceData);
+    }
 
-
+    private void createPerformanceHisData(JSONObject jsonObject, String gpsId, EquipmentTrashcanDTO equipment) {
         PerformanceHisDataTrashcan performanceHisData = new PerformanceHisDataTrashcan();
         performanceHisData.setGpsId(gpsId);
         performanceHisData.setStatus(jsonObject.getInteger("status"));
         performanceHisData.setWtdG(jsonObject.getInteger("wtdG"));
         performanceHisData.setWtnG(jsonObject.getInteger("wtnG"));
         performanceHisData.setErrInfo(jsonObject.getString("errInfo"));
-        performanceHisData.setDept(deptMapper.toEntity(equipmentTrashcanDTO.getDept()));
+
+        //冗余字段
+        performanceHisData.setDept(deptMapper.toEntity(equipment.getDept()));
+        performanceHisData.setAddressProv(equipment.getAddressProv());
+        performanceHisData.setAddressCity(equipment.getAddressCity());
+        performanceHisData.setAddressRegion(equipment.getAddressRegion());
+        performanceHisData.setAddressStreet(equipment.getAddressStreet());
+        performanceHisData.setAddressRoom(equipment.getAddressRoom());
+        performanceHisData.setTrashcanType(equipment.getTrashcanType());
+        performanceHisData.setGarbageType(equipment.getGarbageType());
         performanceHisDataTrashcanService.create(performanceHisData);
     }
+
 }

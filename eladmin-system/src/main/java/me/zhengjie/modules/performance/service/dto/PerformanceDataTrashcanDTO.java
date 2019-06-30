@@ -3,6 +3,7 @@ package me.zhengjie.modules.performance.service.dto;
 import lombok.Data;
 import me.zhengjie.modules.system.service.dto.DeptDTO;
 
+import javax.persistence.Column;
 import java.sql.Timestamp;
 import java.io.Serializable;
 
@@ -52,4 +53,12 @@ public class PerformanceDataTrashcanDTO implements Serializable {
     private DeptDTO dept;
 
     private Long deptId;
+    //
+    private String addressProv;
+    private String addressCity;
+    private String addressRegion;
+    private String addressStreet;
+    private String addressRoom;
+    private String trashcanType;
+    private String garbageType;
 }

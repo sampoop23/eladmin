@@ -65,4 +65,30 @@ public class PerformanceHisDataTrashcan implements Serializable {
     @ManyToOne
     @JoinColumn(name = "dept_id")
     private Dept dept;
+
+    /**
+     * 地址
+     */
+    @Column(name = "address_prov")
+    private String addressProv;
+    @Column(name = "address_city")
+    private String addressCity;
+    @Column(name = "address_region")
+    private String addressRegion;
+    @Column(name = "address_street")
+    private String addressStreet;
+    @Column(name = "address_room")
+    private String addressRoom;
+
+    /**
+     * 垃圾桶类型
+     */
+    @Column(name = "trashcan_type")
+    private String trashcanType;
+
+    /**
+     * 垃圾类型
+     */
+    @Column(name = "garbage_type")
+    private String garbageType;
 }

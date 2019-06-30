@@ -4,6 +4,7 @@ import lombok.Data;
 import me.zhengjie.annotation.Query;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import java.util.Date;
 import java.util.Set;
 
@@ -27,6 +28,26 @@ public class PerformanceHisDataTrashcanQueryCriteria {
     @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     @Query(propName = "dateTime", type = Query.Type.LESS_THAN)
     private Date dateTimeEd;
+
+    // 精确
+    @Query
+    private String addressProv;
+
+    // 精确
+    @Query
+    private String addressCity;
+
+    // 精确
+    @Query
+    private String addressRegion;
+
+    // 精确
+    @Query
+    private String addressStreet;
+
+    // 精确
+    @Query
+    private String addressRoom;
 
     // 精确
     @Query

@@ -32,6 +32,26 @@ public class PerformanceDataTrashcanQueryCriteria {
 
     // 精确
     @Query
+    private String addressProv;
+
+    // 精确
+    @Query
+    private String addressCity;
+
+    // 精确
+    @Query
+    private String addressRegion;
+
+    // 精确
+    @Query
+    private String addressStreet;
+
+    // 精确
+    @Query
+    private String addressRoom;
+
+    // 精确
+    @Query
     private Integer wtnG;
 
     // 精确
