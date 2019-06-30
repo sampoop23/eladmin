@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class UdpServer implements ApplicationRunner {
 
-    private static int PORT = 9000;
+    private static int PORT = 9999;
 
     public static void start() {
 
