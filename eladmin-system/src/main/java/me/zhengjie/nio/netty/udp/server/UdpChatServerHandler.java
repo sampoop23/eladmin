@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.modules.equipment.service.EquipmentTrashcanService;
 import me.zhengjie.modules.equipment.service.dto.EquipmentTrashcanDTO;
 import me.zhengjie.modules.performance.domain.PerformanceDataTrashcan;
+import me.zhengjie.modules.performance.domain.PerformanceHisDataTrashcan;
 import me.zhengjie.modules.performance.service.PerformanceDataTrashcanService;
+import me.zhengjie.modules.performance.service.PerformanceHisDataTrashcanService;
 import me.zhengjie.modules.system.service.mapper.DeptMapper;
 import me.zhengjie.utils.SpringContextHolder;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class UdpChatServerHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
+    private EquipmentTrashcanService equipmentTrashcanService;
+    private PerformanceDataTrashcanService performanceDataTrashcanService;
+    private PerformanceHisDataTrashcanService performanceHisDataTrashcanService;
+    private DeptMapper deptMapper;
+
+//    @PostConstruct
+//    public void postConstruct() {
+//        equipmentTrashcanService = SpringContextHolder.getBean(EquipmentTrashcanService.class);
+//        performanceDataTrashcanService = SpringContextHolder.getBean(PerformanceDataTrashcanService.class);
+//        performanceHisDataTrashcanService = SpringContextHolder.getBean(PerformanceHisDataTrashcanService.class);
+//        deptMapper = SpringContextHolder.getBean(DeptMapper.class);
+//    }
+
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
@@ -38,6 +53,12 @@ public class UdpChatServerHandler extends SimpleChannelInboundHandler<DatagramPa
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws Exception {
+
+        equipmentTrashcanService = SpringContextHolder.getBean(EquipmentTrashcanService.class);
+        performanceDataTrashcanService = SpringContextHolder.getBean(PerformanceDataTrashcanService.class);
+        performanceHisDataTrashcanService = SpringContextHolder.getBean(PerformanceHisDataTrashcanService.class);
+        deptMapper = SpringContextHolder.getBean(DeptMapper.class);
+
 
         // 读取收到的数据
         ByteBuf buf = (ByteBuf) packet.copy().content();
@@ -63,24 +84,30 @@ public class UdpChatServerHandler extends SimpleChannelInboundHandler<DatagramPa
 
     private void savePerformanceData(String json) throws Exception {
 
-        EquipmentTrashcanService equipmentTrashcanService = SpringContextHolder.getBean(EquipmentTrashcanService.class);
-        PerformanceDataTrashcanService performanceDataTrashcanService = SpringContextHolder.getBean(PerformanceDataTrashcanService.class);
-        DeptMapper deptMapper = SpringContextHolder.getBean(DeptMapper.class);
-
 
         JSONObject jsonObject = JSON.parseObject(json);
-        String gpsId = jsonObject.getString("gpsId");
+        String gpsId = jsonObject.getString("imei");
 
         EquipmentTrashcanDTO equipmentTrashcanDTO = equipmentTrashcanService.findByGpsId(gpsId);
 
         PerformanceDataTrashcan performanceData = new PerformanceDataTrashcan();
-        performanceData.setGpsId(jsonObject.getString("gpsId"));
+        performanceData.setGpsId(gpsId);
         performanceData.setStatus(jsonObject.getInteger("status"));
         performanceData.setWtdG(jsonObject.getInteger("wtdG"));
         performanceData.setWtnG(jsonObject.getInteger("wtnG"));
         performanceData.setErrInfo(jsonObject.getString("errInfo"));
         performanceData.setDept(deptMapper.toEntity(equipmentTrashcanDTO.getDept()));
-
+        performanceDataTrashcanService.deleteByGpsId(gpsId);
         performanceDataTrashcanService.create(performanceData);
+
+
+        PerformanceHisDataTrashcan performanceHisData = new PerformanceHisDataTrashcan();
+        performanceHisData.setGpsId(gpsId);
+        performanceHisData.setStatus(jsonObject.getInteger("status"));
+        performanceHisData.setWtdG(jsonObject.getInteger("wtdG"));
+        performanceHisData.setWtnG(jsonObject.getInteger("wtnG"));
+        performanceHisData.setErrInfo(jsonObject.getString("errInfo"));
+        performanceHisData.setDept(deptMapper.toEntity(equipmentTrashcanDTO.getDept()));
+        performanceHisDataTrashcanService.create(performanceHisData);
     }
 }

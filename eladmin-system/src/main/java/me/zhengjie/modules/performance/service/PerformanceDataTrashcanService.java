@@ -67,4 +67,12 @@ public interface PerformanceDataTrashcanService {
      */
 //    @CacheEvict(allEntries = true)
     void delete(Long id);
+
+    /**
+     * deleteByGpsId
+     *
+     * @param gpsId
+     */
+//    @CacheEvict(allEntries = true)
+    void deleteByGpsId(String gpsId);
 }

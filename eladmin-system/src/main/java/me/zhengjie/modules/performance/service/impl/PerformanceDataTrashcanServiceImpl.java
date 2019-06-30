@@ -73,4 +73,12 @@ public class PerformanceDataTrashcanServiceImpl implements PerformanceDataTrashc
     public void delete(Long id) {
         performanceDataTrashcanRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByGpsId(String gpsId) {
+        performanceDataTrashcanRepository.deleteByGpsId(gpsId);
+    }
+
+
 }
